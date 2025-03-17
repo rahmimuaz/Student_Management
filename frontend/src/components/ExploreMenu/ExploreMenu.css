@@ -1,0 +1,83 @@
+.explore-menu-container {
+    position: relative;
+  }
+  
+  
+  /* Mobile-specific menu button */
+  .menu-button {
+    display: none; /* Hidden by default */
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  /* Explore menu layout (Always visible on larger screens) */
+  .explore-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Horizontal layout on larger screens */
+    gap: 50px;
+
+    justify-content: center;
+    
+  }
+
+
+  
+  .explore-menu-list {
+    display: flex;
+    flex-direction: row; /* Horizontal layout on larger screens */
+    gap: 170px;
+    text-align: center;
+
+  }
+  
+  .explore-menu-list-item {
+    background-color: transparent;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .explore-menu-list-item p {
+    color: #747474;
+    font-size: max(1.4vw, 16px);
+  }
+  
+  .explore-menu-list-item.active p {
+    color: #009688;
+  }
+  
+  .explore-menu-list-item:hover p {
+    color: #009688;
+  }
+  
+  .explore-menu-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile-specific styles */
+  @media (max-width: 768px) {
+    .menu-button {
+      display: block; /* Show the menu button on mobile */
+    }
+  
+    .explore-menu {
+      display: none; /* Hide the menu by default on mobile */
+      flex-direction: column; /* Stack vertically on mobile */
+      gap: 10px;
+    }
+  
+    .explore-menu.visible {
+      display: flex; /* Show the menu when it's toggled */
+    }
+  
+    .explore-menu-list {
+      display: flex;
+      flex-direction: column; /* Stack vertically on mobile */
+      gap: 10px;
+    }
+  }
+  
