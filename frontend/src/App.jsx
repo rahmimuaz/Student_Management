@@ -1,32 +1,26 @@
-import React, { useState ,useContext,useEffect} from 'react';
-import Navbar from './components/Navbar/Navbar';
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import LoginPopup from './components/LoginPopup/LoginPopup'; 
-import { StoreContext } from './context/StoreContext';
-import 'bootstrap/dist/css/bootstrap.css';
-
-
+import React, { useState, useContext, useEffect } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Login from "./components/Login/Login";
+import { StoreContext } from "./context/StoreContext";
+import "bootstrap/dist/css/bootstrap.css";
 
 const App = () => {
-  const [showLogin, setShowLogin] = useState(false); 
   const { token, setToken } = useContext(StoreContext);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-        setToken(storedToken);
+      setToken(storedToken);
     }
-}, [setToken]);
+  }, [setToken]);
 
   return (
-    <div className='app'>
-      <Navbar setShowLogin={setShowLogin} token ={token} /> 
-      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+    <div className="app">
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path="/login" element={<LoginPopup />} />
-
+        {/* Redirect to login if no token */}
+        <Route path="/" element={ < Login />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );
