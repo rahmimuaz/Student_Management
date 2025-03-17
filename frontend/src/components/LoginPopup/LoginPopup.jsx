@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
-import axios from "axios"
+import axios from "axios";
 
-const LoginPopup = ({ setShowLogin }) => { 
+const LoginPopup = () => { 
     const { url, setToken } = useContext(StoreContext);
     const [currState, setCurrentState] = useState("Login");
     const [data, setData] = useState({ name: "", email: "", password: "" });
@@ -13,6 +13,7 @@ const LoginPopup = ({ setShowLogin }) => {
         const { name, value } = event.target;
         setData(prev => ({ ...prev, [name]: value }));
     };
+
     const onLogin = async (event) => {
         event.preventDefault();
         if (!data.email || !data.password || (currState === "Sign Up" && !data.name)) {
@@ -28,7 +29,6 @@ const LoginPopup = ({ setShowLogin }) => {
                 setToken(response.data.token);
                 localStorage.setItem("token", response.data.token);
                 
-                // Only store name if it's in the response and we're logging in
                 if (currState === "Sign Up") {
                     localStorage.setItem("name", data.name); // Sign-up name
                 } else if (response.data.user) {
@@ -36,7 +36,6 @@ const LoginPopup = ({ setShowLogin }) => {
                 }
     
                 localStorage.setItem("email", data.email); // Store email
-                setShowLogin(false); // Close the popup
             } else {
                 alert(response.data.message);
             }
@@ -47,13 +46,12 @@ const LoginPopup = ({ setShowLogin }) => {
     };
 
     return (
-        <div className='login-popup'>
-            <form onSubmit={onLogin} className="login-popup-container">
-                <div className="login-popup-title">
+        <div className='login-page'>
+            <form onSubmit={onLogin} className="login-form">
+                <div className="login-form-header">
                     <h2>{currState}</h2>
-                    <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="Close" />
                 </div>
-                <div className="login-popup-input">
+                <div className="login-form-body">
                     {currState === "Sign Up" && (
                         <input name='name' onChange={onChangeHandler} value={data.name} type="text" placeholder='Your name' required />
                     )}
@@ -63,7 +61,7 @@ const LoginPopup = ({ setShowLogin }) => {
                 <button type='submit'>{currState === "Sign Up" ? "Create account" : "Login"}</button>
 
                 {currState === "Sign Up" && (
-                    <div className="login-popup-condition">
+                    <div className="login-form-condition">
                         <input type="checkbox" required />
                         <p>By continuing, I agree to the terms of use and privacy policy</p>
                     </div>
