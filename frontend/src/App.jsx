@@ -2,11 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./components/Login/Login";
-import { StoreContext } from "./context/StoreContext";
+import { StudentStoreContext } from "./context/StudentStoreContext";
 import "bootstrap/dist/css/bootstrap.css";
 
+import StudentList from "./pages/Student/StudentList";
+import AddStudent from "./pages/Student/AddStudent";
+import EditStudent from "./pages/Student/EditStudent";
+
 const App = () => {
-  const { token, setToken } = useContext(StoreContext);
+  const { token, setToken } = useContext(StudentStoreContext);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -21,6 +25,9 @@ const App = () => {
         {/* Redirect to login if no token */}
         <Route path="/" element={ < Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/students" element={<StudentList />} />
+        <Route path="/students/add" element={<AddStudent />} />
+        <Route path="/students/edit/:id" element={<EditStudent />} />
       </Routes>
     </div>
   );

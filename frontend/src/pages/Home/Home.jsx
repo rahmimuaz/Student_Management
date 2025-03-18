@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/StoreContext";
+import { StudentStoreContext } from "../../context/StudentStoreContext"; // Update the import to your StoreContext location
 import "./Home.css";
 
 const Home = () => {
-    const { setToken } = useContext(StoreContext);
+    const { setToken } = useContext(StoreContext); // Make sure StoreContext is the correct one
     const navigate = useNavigate();
 
     const handleSignOut = () => {

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Login.css";
-import { StoreContext } from "../../context/StoreContext";
+import { StudentStoreContext } from "../../context/StudentStoreContext";
 import axios from "axios";
 
 const Login = () => {
-    const { url, setToken } = useContext(StoreContext);
+    const { url, setToken } = useContext(StudentStoreContext);
     const [currState, setCurrentState] = useState("Login");
     const [data, setData] = useState({ name: "", email: "", password: "" });
     const navigate = useNavigate(); // Initialize useNavigate
@@ -38,8 +38,8 @@ const Login = () => {
 
                 localStorage.setItem("email", data.email);
 
-                // Redirect to Home page on successful login
-                navigate("/home"); 
+                // Redirect to Add Student page after successful login
+                navigate("/students/add"); // Redirect to AddStudent page
             } else {
                 alert(response.data.message);
             }
